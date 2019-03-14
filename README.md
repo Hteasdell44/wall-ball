@@ -1,2 +1,2 @@
-# MyPortfolio
-A repository displaying the projects I have undertaken.
+# Wall Ball
+A classic "Bubble Burst" style game created using HTML, CSS, and JavaScript.
