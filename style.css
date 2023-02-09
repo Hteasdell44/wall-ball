@@ -1,6 +1,7 @@
 * {
     padding: 0;
     margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
@@ -8,14 +9,18 @@ body {
     background-color: aqua;
 }
 
-h1, h3, p {
+h1, h2, h3, p {
 
     text-align: center;
+    margin-bottom: 2vh;
+    
 }
 
 #startBoxParent {
 
     text-align: center;
+    margin-top: 25vh;
+    
 }
 
 #startBox {
@@ -27,6 +32,7 @@ h1, h3, p {
     padding-right: 5vh;
     padding-top: 5vh;
     padding-bottom: 5vh;
+    box-shadow: 5px 5px;
     
 }
 
@@ -45,4 +51,29 @@ h1, h3, p {
     margin: 0 auto;
     border: 5px solid black;
 
+}
+
+#buttonHolderOne { 
+
+    margin-top: 3vh;
+
+}
+
+#buttonHolderTwo {
+
+    margin-top: 3vh;
+
+}
+
+.button {
+
+    margin-left: 3vh;
+    margin-right: 3vh;
+    padding-top: 3vh;
+    padding-bottom: 3vh;
+    padding-left: 6vh;
+    padding-right: 6vh;
+    box-shadow: 3px 3px;
+    font-weight: bold;
+    font-size: large;
 }
