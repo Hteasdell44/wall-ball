@@ -5,11 +5,25 @@ const hardButton = document.getElementById("hardButton");
 const impossibleButton = document.getElementById("impossibleButton");
 const randomButton = document.getElementById("randomButton");
 
+const menuCanvasHolder = document.getElementById("menuCanvasHolder");
+const menuCanvas = document.getElementById("menuCanvas");
+let menuCtx = menuCanvas.getContext("2d");
+
 const canvas = document.getElementById("myCanvas");
+const canvasHolder = document.getElementById("canvasHolder");
 let ctx = canvas.getContext("2d");
 
 let x = canvas.width / 2;
 let y = canvas.height - 30;
+
+let menuDx = 2;
+let menuDy = 2;
+
+let menuX = menuCanvas.width / 2;
+let menuY = menuCanvas.height - 30;
+
+menuCanvasHolder.style.display = "block";
+menuCanvas.style.display = "block";
 canvas.style.display = "none";
 
 let ballRadius = 10;
@@ -42,6 +56,14 @@ let brickY = (r * (brickHeight + brickPadding)) + brickOffsetTop;
 
 
 let interval;
+let menuInterval;
+
+let easyBool;
+let mediumBool;
+let hardBool;
+let impossibleBool;
+let randomBool;
+
 
 for (var c = 0; c < brickColumnCount; c++) {
     bricks[c] = [];
@@ -50,17 +72,88 @@ for (var c = 0; c < brickColumnCount; c++) {
     }
 }
 
+drawMenu();
 
-easyButton.addEventListener("click", drawEasy);
-mediumButton.addEventListener("click", drawMedium);
-hardButton.addEventListener("click", drawHard);
-impossibleButton.addEventListener("click", drawImpossible);
-randomButton.addEventListener("click", drawRandom);
+function drawMenu() {
 
+    menuInterval = setInterval(drawMenu, 10);
+    console.log(menuInterval);
+    console.log(interval);
+    menuCtx.clearRect(0, 0, menuCanvas.width, menuCanvas.height);
+    menuDrawBall();
+
+    if (menuX + menuDx > menuCanvas.width - ballRadius + 7|| menuX + menuDx < ballRadius - 7) {
+        
+        menuDx = -menuDx;
+    
+    }
+    if (menuY + menuDy < ballRadius - 10) {
+        
+        menuDy = -menuDy;
+
+    } else if (menuY + menuDy > menuCanvas.height - ballRadius + 10) {
+        
+        // if (menuX > paddleX && menuX < paddleX + paddleWidth) {
+            
+            menuDy = -menuDy;
+            
+        // }
+            
+    }
+
+    menuX += menuDx * .10;
+    menuY += menuDy * .10;
+
+
+    easyButton.onclick = function () {
+        easyBool = true;   
+    }
+
+    if (easyBool == true) {
+        drawEasy();
+    }
+
+    mediumButton.onclick = function () {
+        mediumBool = true;   
+    }
+
+    if (mediumBool == true) {
+        drawMedium();
+    }
+
+    hardButton.onclick = function () {
+        hardBool = true;   
+    }
+
+    if (hardBool == true) {
+        drawHard();
+    }
+
+    impossibleButton.onclick = function () {
+        impossibleBool = true;   
+    }
+
+    if (impossibleBool == true) {
+        drawImpossible();
+    }
+
+    randomButton.onclick = function () {
+        randomBool = true;   
+    }
+
+    if (randomBool == true) {
+        drawRandom();
+    }
+
+
+}
 
 function drawRandom() {
-    
+
+    clearInterval(menuInterval);
     startBoxParent.style.display = "none";
+    menuCanvasHolder.style.display = "none";
+    menuCanvas.style.display = "none";
     canvas.style.display = "block";
 
     if (totalC == undefined) {
@@ -124,8 +217,14 @@ function drawRandom() {
 }
 
 function drawEasy() {
+
+    console.log(menuInterval);
     
     startBoxParent.style.display = "none";
+
+    menuCanvasHolder.style.display = "none";
+    menuCanvas.style.display = "none";
+
     canvas.style.display = "block";
 
     brickRowCount = 3;
@@ -136,7 +235,8 @@ function drawEasy() {
     }
 
     let alertCount = 0;
-    interval = setInterval(drawEasy, 10);
+    interval = setInterval(drawEasy, 0);
+    console.log(menuInterval);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBall();
     drawBricks();
@@ -193,7 +293,10 @@ function drawEasy() {
 function drawMedium() {
     
     startBoxParent.style.display = "none";
+    menuCanvasHolder.style.display = "none";
+    menuCanvas.style.display = "none";
     canvas.style.display = "block";
+
 
     brickRowCount = 6;
 
@@ -260,6 +363,8 @@ function drawMedium() {
 function drawHard() {
     
     startBoxParent.style.display = "none";
+    menuCanvasHolder.style.display = "none";
+    menuCanvas.style.display = "none";
     canvas.style.display = "block";
 
     brickRowCount = 9;
@@ -327,6 +432,8 @@ function drawHard() {
 function drawImpossible() {
     
     startBoxParent.style.display = "none";
+    menuCanvasHolder.style.display = "none";
+    menuCanvas.style.display = "none";
     canvas.style.display = "block";
 
     brickRowCount = 12;
@@ -398,6 +505,16 @@ function drawBall() {
     ctx.fillStyle = "#000000";
     ctx.fill();
     ctx.closePath();
+
+}
+
+function menuDrawBall() {
+
+    menuCtx.beginPath();
+    menuCtx.arc(menuX, menuY, ballRadius / 2, 0, Math.PI * 2);
+    menuCtx.fillStyle = "#000000";
+    menuCtx.fill();
+    menuCtx.closePath();
 
 }
 
